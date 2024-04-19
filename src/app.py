@@ -2,6 +2,7 @@
 # Flask class. Instance of this class will be our WSGI application (Web Server Gateway Interface).
 import os
 from flask import Flask, jsonify
+from flasgger import Swagger
 from models.taxi_model import db, Taxi
 
 # Instance of Flask class. Argument __name__ is the name of the application’s module or package.
@@ -14,17 +15,52 @@ postgres_url = os.getenv('POSTGRES_URL')
 app.config["SQLALCHEMY_DATABASE_URI"] = postgres_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
+# initialize the SQLAlchemy extension class with the application by calling :
 db.init_app(app)
+
+# Initialize Swagger
+Swagger(app)
 
 @app.route("/")
 def index():
-    """Index route"""
+    """
+    Index route
+    ---
+    get:
+      description: Returns a welcome message
+      responses:
+        200:
+          description: A welcome message
+          schema:
+            type: string
+    """
     return "Welcome to the Fleet Management API!"
 
 @app.route("/taxis", methods=["GET"])
 def get_taxis():
-    """Get Taxis"""
+    """
+    Get list of taxis
+    ---
+    responses:
+      200:
+        description: A list of taxis
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/Taxi'
+      404:
+        description: No taxis found
+          properties:
+            id:
+              type: integer
+              description: The taxi ID (primary key)
+            plate:
+              type: string
+              description: The taxi plate number (alphanumeric)
+    """
     taxis = Taxi.query.limit(10).all()
+    if not taxis:
+        return jsonify({"error": "No taxis found"}), 404
     print(taxis)
     taxi_list = [{"id": taxi.id, "plate": taxi.plate} for taxi in taxis]
     return jsonify(taxi_list)
