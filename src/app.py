@@ -16,14 +16,18 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
 
-@app.route("/taxi", methods=["GET"])
+@app.route("/")
+def index():
+    """Index route"""
+    return "Welcome to the Taxi API!"
+
+@app.route("/taxis", methods=["GET"])
 def get_taxis():
     """Get Taxis"""
     taxis = Taxi.query.limit(10).all()
     print(taxis)
-    for taxi in taxis:
-        taxi_list = [{"id": taxi.id, "plate": taxi.plate}]
-        return jsonify(taxi_list)
+    taxi_list = [{"id": taxi.id, "plate": taxi.plate} for taxi in taxis]
+    return jsonify(taxi_list)
 
 
 # If the name of the app from main route __main__ then execute our app with the run() cmd
