@@ -2,7 +2,7 @@
 # Flask class. Instance of this class will be our WSGI application (Web Server Gateway Interface).
 import os
 from flask import Flask, jsonify
-from models import db, Taxi
+from models.taxi_model import db, Taxi
 
 # Instance of Flask class. Argument __name__ is the name of the application’s module or package.
 app = Flask(__name__)
@@ -19,7 +19,7 @@ db.init_app(app)
 @app.route("/")
 def index():
     """Index route"""
-    return "Welcome to the Taxi API!"
+    return "Welcome to the Fleet Management API!"
 
 @app.route("/taxis", methods=["GET"])
 def get_taxis():
