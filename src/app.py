@@ -24,68 +24,44 @@ Swagger(app)
 
 @app.route("/")
 def index():
-    """
-    Index route
-    ---
-    get:
-      description: Returns a welcome message
-      responses:
-        200:
-          description: A welcome message
-          schema:
-            type: string
-    """
+    """Index route"""
     return "Welcome to the Fleet Management API!"
 
 @app.route("/taxis", methods=["GET"])
 def get_taxis():
-    """
-    Get list of taxis
-    ---
-    swagger: "3.0"
-    info:
-    description: "Documentation [Fleet Management API - Python](https://github.com/Wendy-Alejandra/DEV013-fleet-management-api/tree/main)"
-    version: "1.0.0-basic"
-    title: "Fleet management API"
-    tags:
-    - name: "taxis"
-        description: "Taxi operations"
-    paths:
-    /taxis:
-        get:
-        summary: "taxis list"
-        description: ""
-    parameters:
-    - name: limit
-    in: query
-    type: integer
-    description: Number of elements per page
-    default: 10
-    responses:
-    200:
-        description: A list of taxis (successful operation)
-        schema:
-        type: array
-        items:
-            $ref: '#/definitions/Taxi'
-    404:
-        description: No taxis found
-        properties:
-            id:
-            type: integer
-            description: The taxi ID (primary key)
-            plate:
-            type: string
-            description: The taxi plate number (alphanumeric)
-    """
-    # Limiting the number of elements per page
-    limit = int(request.args.get('limit', 5))
-    taxis = Taxi.query.limit(limit).all()
-    if not "/taxis":
-        return jsonify({"error": "No taxis found"}), 404
+    """Get list of taxis and pagination"""
+    # Obtener los parámetros de consulta de la URL
+    page = request.args.get('page', default=1, type=int)
+    per_page = request.args.get('per_page', default=5, type=int)
+
+    # Calcular el índice de inicio y fin de los elementos
+    start_index = (page - 1) * per_page
+    print(start_index)
+    end_index = start_index + per_page
+    print(end_index)
+
+    # Si es la página 2, solo devolver 5 elementos en total
+    if page == 2:
+        start_index = 0
+        per_page = 5
+
+    # Consultar la base de datos solo para los taxis de la página actual
+    taxis = Taxi.query.offset(start_index).limit(per_page).all()
     print(taxis)
+
+    # Construir la lista de taxis
     taxi_list = [{"id": taxi.id, "plate": taxi.plate} for taxi in taxis]
     return jsonify(taxi_list)
+
+    # taxis = Taxi.query.all()
+    # Limiting the number of elements per page
+    # limit = int(request.args.get('limit', 5))
+    # taxis = Taxi.query.limit(limit).all()
+    # if not "/taxis":
+    #     return jsonify({"error": "No taxis found"}), 404
+    # print(taxis)
+    # taxi_list = [{"id": taxi.id, "plate": taxi.plate} for taxi in taxis]
+    # return jsonify(taxi_list)
 
 
 # If the name of the app from main route __main__ then execute our app with the run() cmd
