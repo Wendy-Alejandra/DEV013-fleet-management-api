@@ -1,24 +1,15 @@
 """Flask application"""
 # Flask class. Instance of this class will be our WSGI application (Web Server Gateway Interface).
-import os
+
 from flask import Flask, jsonify
 from flask import request
 from flasgger import Swagger
-from models.taxi_model import db, Taxi
+from src.models.taxi_model import Taxi
+from src.config import Config
 
 # Instance of Flask class. Argument __name__ is the name of the application’s module or package.
 app = Flask(__name__)
-
-# Get URI connection to PostgreSQL from environment variables
-postgres_url = os.getenv('POSTGRES_URL')
-
-# Configure the SQLAlchemy database, relative to the app instance folder
-app.config["SQLALCHEMY_DATABASE_URI"] = postgres_url
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-# initialize the SQLAlchemy extension class with the application by calling :
-db.init_app(app)
-
+app.config.from_object(Config())
 # Initialize Swagger
 Swagger(app)
 
