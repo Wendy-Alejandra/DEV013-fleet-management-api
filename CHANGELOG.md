@@ -1,3 +1,34 @@
+## <1.1.0> - <2024-04-24>
+
+### Sprint learnings
+
+* Creation of swagger documentation (not fully)
+* Modularizing the project (still learning).
+* Creation of endpoints and its pagination.
+* paginate() is a non iterable object so I learnt the use of .item which iterates it as a list.
+* Use of postman to check how to paginate the endpoint and apply it to the code using SQLAlchemy.
+
+### Added
+
+* Created folder models to store taxi model at first place.
+* Created the config.py file to set up SQLAlchemy module and interact with postgre db and separate responsibilities in the app.py file.
+* Created templates folder and added an index.html file (for practicing).
+* Created the endpoint /taxis in the app.py file with its pagination using SQLAlchemy.
+
+### Changed
+
+* Changed the conexion.py file to vercel_connect.py (this file is not in use)
+
+### Fixed
+
+N/A
+
+### Removed
+
+* Removed templates folder I added for practicing routes creations
+
+-----------------------------------------------------------------------------------------------------------------
+
 ## <1.0.0> - <2024-04-17>
 
 ### Sprint learnings
