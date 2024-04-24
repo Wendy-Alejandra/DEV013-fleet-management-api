@@ -1,15 +1,17 @@
 """Flask application"""
-# Flask class. Instance of this class will be our WSGI application (Web Server Gateway Interface).
+
 
 from flask import Flask, jsonify
-from flask import request
+# from flask import request
 from flasgger import Swagger
-from src.models.taxi_model import Taxi
+from src.models.taxi_model import db, Taxi
 from src.config import Config
 
 # Instance of Flask class. Argument __name__ is the name of the application’s module or package.
 app = Flask(__name__)
 app.config.from_object(Config())
+db.init_app(app)
+
 # Initialize Swagger
 Swagger(app)
 
@@ -19,41 +21,18 @@ def index():
     return "Welcome to the Fleet Management API!"
 
 @app.route("/taxis", methods=["GET"])
-def get_taxis():
+@app.route("/taxis/<int:page>", methods=["GET"])
+def get_taxis(page=1):
     """Get list of taxis and pagination"""
-    # Obtener los parámetros de consulta de la URL
-    page = request.args.get('page', default=1, type=int)
-    per_page = request.args.get('per_page', default=5, type=int)
-
-    # Calcular el índice de inicio y fin de los elementos
-    start_index = (page - 1) * per_page
-    print(start_index)
-    end_index = start_index + per_page
-    print(end_index)
-
-    # Si es la página 2, solo devolver 5 elementos en total
-    if page == 2:
-        start_index = 0
-        per_page = 5
-
-    # Consultar la base de datos solo para los taxis de la página actual
-    taxis = Taxi.query.offset(start_index).limit(per_page).all()
+    # using Flask SQLAlchemy pagination object
+    # As of Flask-SQLAlchemy 3.0, all arguments to paginate are keyword-only
+    # .items on the current page list (as paginate() is an object so it is not iterable)
+    taxis = Taxi.query.paginate(page=page, per_page=10,error_out=False).items
     print(taxis)
 
-    # Construir la lista de taxis
+    # Build list of taxis
     taxi_list = [{"id": taxi.id, "plate": taxi.plate} for taxi in taxis]
     return jsonify(taxi_list)
-
-    # taxis = Taxi.query.all()
-    # Limiting the number of elements per page
-    # limit = int(request.args.get('limit', 5))
-    # taxis = Taxi.query.limit(limit).all()
-    # if not "/taxis":
-    #     return jsonify({"error": "No taxis found"}), 404
-    # print(taxis)
-    # taxi_list = [{"id": taxi.id, "plate": taxi.plate} for taxi in taxis]
-    # return jsonify(taxi_list)
-
 
 # If the name of the app from main route __main__ then execute our app with the run() cmd
 if __name__ == "__main__":
