@@ -21,14 +21,12 @@ def index():
     return "Welcome to the Fleet Management API!"
 
 @app.route("/taxis", methods=["GET"])
-# @app.route("/taxis/<int:page>", methods=["GET"])
 def get_taxis(page=1):
     """Get list of taxis and pagination"""
     # Filtering the data from db per page using request parameters
     page = request.args.get('page', default=1, type=int)
     per_page = request.args.get('per_page', default=10, type=int)
-    # using Flask SQLAlchemy pagination object
-    # As of Flask-SQLAlchemy 3.0, all arguments to paginate are keyword-only
+    # using Flask SQLAlchemy pagination object all arguments to paginate are keyword-only
     # .items on the current page list (as paginate() is an object so it is not iterable)
     taxis = Taxi.query.paginate(page=page, per_page=per_page,error_out=False).items
     print(taxis)

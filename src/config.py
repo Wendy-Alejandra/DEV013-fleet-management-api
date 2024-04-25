@@ -7,8 +7,6 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 class Config():
     """SQLAlchemy configuration"""
-    # Configure the SQLAlchemy database
-    postgres_url = os.getenv('POSTGRES_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    # Get URI connection to PostgreSQL from environment variables
-    SQLALCHEMY_DATABASE_URI = postgres_url
+    # Configure SQLAlchemy database & Get URI connection to PostgreSQL from env variables
+    SQLALCHEMY_DATABASE_URI = os.getenv('POSTGRES_URL')
