@@ -1,7 +1,5 @@
 """Taxi model"""
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from src.config import db
 
 class Taxi(db.Model):
     """Create Taxi class"""
