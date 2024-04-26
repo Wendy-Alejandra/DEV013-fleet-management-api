@@ -21,7 +21,7 @@ def index():
     return "Welcome to the Fleet Management API!"
 
 @app.route("/taxis", methods=["GET"])
-def get_taxis(page=1):
+def get_taxis():
     """Get list of taxis and pagination"""
     # Filtering the data from db per page using request parameters
     page = request.args.get('page', default=1, type=int)
