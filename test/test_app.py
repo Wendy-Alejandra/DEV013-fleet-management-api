@@ -4,6 +4,12 @@ def test_get_taxis(client):
     response = client.get('/taxis')
     assert response.status_code == 200
 
+# def test_get_taxis_page_default(client):
+#     """Testing /taxis page default"""
+#     response = client.get('/taxis')
+#     data = response.get_json() # Checks if returns the first page by default
+#     assert data
+
 def test_get_taxis_pagination(client):
     """Testing /taxis pagination is correctly working"""
     response = client.get('/taxis?page=2&per_page=10')
