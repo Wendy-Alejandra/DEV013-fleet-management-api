@@ -4,21 +4,10 @@ def test_get_taxis(client):
     response = client.get('/taxis')
     assert response.status_code == 200
 
-# def test_get_taxis_404_error(client):
-#     """Testing /taxis route error"""
-#     response = client.get('/taxi')
-#     assert response.status_code == 404
-
 def test_get_taxis_500_error(client):
     """Testing /taxis route error"""
     response = client.get('/taxis')
     assert not response.status_code == 500
-
-# def test_get_taxis_page_default(client):
-#     """Testing /taxis page default"""
-#     response = client.get('/taxis')
-#     data = response.get_json() # Checks if returns the first page by default
-#     assert data
 
 def test_get_taxis_pagination(client):
     """Testing /taxis pagination is correctly working"""
