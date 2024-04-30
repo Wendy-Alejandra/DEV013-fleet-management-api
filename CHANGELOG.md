@@ -1,3 +1,34 @@
+## <1.2.0> - <2024-04-30>
+
+### Sprint learnings
+
+* Understanding MVC arquitecture
+* Testing with pytest and fixtures
+* Unit testing
+* Understanding e2e testing and its difference with unit and integration testing
+* The use of conftest file to make fitures global and avoid repeating lines of code.
+
+### Added
+
+* Created an independent test folder (outside the main folder `src`)
+* Created the `conftest.py` file
+* Created the `test_app.py` file for unit testing
+* Created the `test_e2e.py` file for e2e testing
+
+### Changed
+
+N/A
+
+### Fixed
+
+N/A
+
+### Removed
+
+N/A
+
+-----------------------------------------------------------------------------------------------------------------
+
 ## <1.1.0> - <2024-04-24>
 
 ### Sprint learnings
