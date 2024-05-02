@@ -22,7 +22,42 @@ def index():
 
 @app.route("/taxis", methods=["GET"])
 def get_taxis():
-    """Get list of taxis and pagination"""
+    """Get list of taxis and pagination
+    ---
+    parameters:
+      - name: query
+        in: query
+        type: string
+        required: false
+        description: taxi plate.
+
+      - name: page
+        in: query
+        type: integer
+        required: false
+        description: result page number. The default value is 1.
+
+      - name: limit
+        in: query
+        type: integer
+        required: false
+        description: Number of elements per page. The default value is 10.
+
+    responses:
+      200 :
+        description: Returns a list of taxis in JSON format.
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: taxi ID.
+              plate:
+                type: string
+                description: taxi plate.
+    """
     try:
         # Filtering the data from db per page using request parameters
         page = request.args.get('page', default=1, type=int)
