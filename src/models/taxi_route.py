@@ -1,6 +1,5 @@
-"""Defining taxis routes"""
-from flask import Blueprint, jsonify
-from flask import request
+"""Defining taxis endpoint"""
+from flask import Blueprint, jsonify, request
 from src.models.models import Taxi
 
 taxi_bp = Blueprint("taxi_bp", __name__)
