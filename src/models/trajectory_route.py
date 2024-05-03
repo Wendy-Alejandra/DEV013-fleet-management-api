@@ -1,5 +1,4 @@
 """Defining trajectories endpoint"""
-
 from datetime import datetime, timedelta
 from flask import Blueprint, request, jsonify
 from src.models.models import Trajectory
@@ -9,7 +8,7 @@ trajectory_bp = Blueprint("trajectory_bp", __name__)
 @trajectory_bp.route("/trajectories/<int:taxi_id>", methods=["GET"])
 def get_trajectories(taxi_id):
     """Get list of taxis trajectories"""
-    # Getting date param
+    # Getting date as a query param
     date_str = request.args.get('date')
 
     # Pagination limits
@@ -21,7 +20,7 @@ def get_trajectories(taxi_id):
 
     try:
         date = datetime.strptime(date_str, '%Y-%m-%d').date()
-        date_tomorrow = date + timedelta(days=1) # Adds the quantity of seconds in one day
+        date_tomorrow = date + timedelta(days=1) # Adds one day to date
 
     except ValueError:
         return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD format"}), 400
