@@ -4,18 +4,19 @@
 
 * Understanding blueprint architecture
 * Modularization with blueprint
-* Create a parameter as part of the URL path in /trajectories/taxi_id
+* Create a parameter as part of the URL path in `/trajectories/taxi_id`
 * Create multiple queries at once with SQLAlchemy
 * Use of timedelta an object that represents a duration, the difference between two instants of time.
+* Correctly run coverage reports with pytest
 
 ### Added
 
-* Created taxi_route.py and trajectory_route.py files into models folder
-* create_app() function in app.py file and all running the program related code only put into this function
+* Created `taxi_route.py` and `trajectory_route.py` files into models folder
+* create_app() function in `app.py` file and all running the program related code only put into this function
 
 ### Changed
 
-* taxi_model.py file to models.py for both taxis and trajectories models
+* `taxi_model.py` file to `models.py` for both taxis and trajectories models
 
 ### Fixed
 
@@ -23,7 +24,7 @@ N/A
 
 ### Removed
 
-* /taxis endpoint from app.py file to modularize and limit responsabilities
+* /taxis endpoint from `app.py` file to modularize and limit responsabilities
 
 -----------------------------------------------------------------------------------------------------------------
 
