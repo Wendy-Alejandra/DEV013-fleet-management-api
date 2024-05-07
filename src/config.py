@@ -23,6 +23,7 @@ class TestingConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.getenv('TEST_DATABASE_URL')
 
+# This dictionary facilitates the access to the available configurations set in this file
 config = {
     "development": DevelopmentConfig,
     "testing": TestingConfig

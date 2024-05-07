@@ -32,5 +32,4 @@ def create_app():
 # If the name of the app from main route __main__ then execute our app with the run() cmd
 if __name__ == "__main__":
     app = create_app()
-    # app = create_app(config_mode)
     app.run(debug=True, port=5000) # Debugger activated
