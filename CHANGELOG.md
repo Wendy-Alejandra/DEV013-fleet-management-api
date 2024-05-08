@@ -8,6 +8,8 @@
 * Create multiple queries at once with SQLAlchemy
 * Use of timedelta an object that represents a duration, the difference between two instants of time.
 * Correctly run coverage reports with pytest
+* Understanding environment configurations
+* Use of request_context() for e2e testing
 
 ### Added
 

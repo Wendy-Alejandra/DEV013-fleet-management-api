@@ -37,3 +37,8 @@ def test_get_trajectories_pagination(client):
     response = client.get("/trajectories/6418?date=2008-02-02&page=10&per_page=10")
     data = response.get_json()
     assert len(data) == 10
+
+# def test_get_trajectories_date_str(client):
+#     response = client.get("/trajectories/6418?date=2008-02-02&page=10&per_page=10")
+#     assert response == '2008-02-02'
+    

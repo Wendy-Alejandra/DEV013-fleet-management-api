@@ -10,10 +10,13 @@ def get_trajectories(taxi_id):
     """Get list of taxis trajectories"""
     # Getting date as a query param
     date_str = request.args.get('date')
+    print(date_str)
 
     # Pagination limits
     page = request.args.get('page', default=1, type=int)
+    print(page)
     per_page = request.args.get('per_page', default=10, type=int)
+    print(per_page)
 
     if not date_str:
         return jsonify({"error": "date parameter is required"}), 400
