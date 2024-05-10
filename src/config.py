@@ -21,7 +21,7 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     """Testing environment set up"""
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.getenv('TEST_DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = "sqlite:////home/icarito/db1"
 
 # This dictionary facilitates the access to the available configurations set in this file
 config = {
