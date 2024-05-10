@@ -6,7 +6,7 @@ from src.app import create_app
 from src.config import config
 from src.models.models import Taxi, Trajectory
 
-app = create_app()
+app = create_app(config["testing"])
 
 @pytest.fixture
 def client():
@@ -18,7 +18,7 @@ def client():
 def migrate_data():
     """Migrate (Create and insert) Postgres db data into sqlite db"""
     # PostgreSQL db connection Set up
-    postgres_db_uri = config["development"]
+    postgres_db_uri = config["testing"]
     app.config.from_object(postgres_db_uri)
     postgres_engine = create_engine(postgres_db_uri)
     Session = sessionmaker(bind=postgres_engine)
