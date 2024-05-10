@@ -18,23 +18,17 @@ def client():
 def migrate_data():
     """Migrate (Create and insert) Postgres db data into sqlite db"""
     # PostgreSQL db connection Set up
-    postgres_db_uri = config["testing"]
-    app.config.from_object(postgres_db_uri)
-    postgres_engine = create_engine(postgres_db_uri)
-    Session = sessionmaker(bind=postgres_engine)
-    postgres_session = Session()
-
-    # trajectory = Trajectory()
-    # Query data from PostgreSQL tables
-    taxis = postgres_session.query(Taxi).limit(5).all()
-    trajectories = postgres_session.query(Trajectory).limit(10).all()
-
-    # Then insert the above data (queried in Postgres) into sqlite db
     sqlite_db_uri = config["testing"]
     app.config.from_object(sqlite_db_uri)
     sqlite_engine = create_engine(sqlite_db_uri)
     Session = sessionmaker(bind=sqlite_engine)
     sqlite_session = Session()
+
+    # Query to create tables into sqlite db
+    taxis = postgres_session.query(Taxi).limit(5).all()
+    trajectories = postgres_session.query(Trajectory).limit(10).all()
+
+    # Query to insert data into sqlite db
 
     for taxi in taxis:
         new_taxi = Taxi(
@@ -55,7 +49,6 @@ def migrate_data():
     sqlite_session.commit()
 
     # Close the sessions
-    postgres_session.close()
     sqlite_session.close()
 
 # @pytest.fixture

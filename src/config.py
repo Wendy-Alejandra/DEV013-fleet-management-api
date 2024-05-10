@@ -21,7 +21,7 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     """Testing environment set up"""
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = "sqlite:////home/icarito/db1"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///C:/Users/Wendy/db1"
 
 # This dictionary facilitates the access to the available configurations set in this file
 config = {
