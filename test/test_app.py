@@ -1,5 +1,5 @@
 """endpoints unit tests"""
-import datetime
+# import datetime
 # taxis endpoint unit tests
 def test_get_taxis(client):
     """Testing /taxis route is available"""

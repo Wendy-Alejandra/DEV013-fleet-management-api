@@ -1,9 +1,8 @@
-"""Taxi model"""
+"""Taxi and Trajectory models"""
 from src.config import db
 class Taxi(db.Model):
     """Create taxi table class"""
     __tablename__ = "taxis"
-
     id = db.Column(db.Integer, primary_key=True)
     plate = db.Column(db.String(20), nullable=False)
 
@@ -16,6 +15,3 @@ class Trajectory(db.Model):
     latitude = db.Column(db.DOUBLE_PRECISION, nullable=False)
     longitude = db.Column(db.DOUBLE_PRECISION, nullable=False)
     taxi = db.relationship("Taxi", backref=db.backref("trajectories", lazy=True))
-
-# def __repr__(self):
-#     return f"<Trajectory(id={self.id}, taxi_id={self.taxi_id}, date={self.date}, latitude={self.latitude}, longitude={self.longitude})>"

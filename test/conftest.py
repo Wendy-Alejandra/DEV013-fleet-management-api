@@ -1,10 +1,10 @@
 """Client configuration"""
 import pytest
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+# from sqlalchemy import create_engine, text #MetaData
+# from sqlalchemy.orm import sessionmaker
 from src.app import create_app
 from src.config import config
-from src.models.models import Taxi, Trajectory
+# from src.models.models import Taxi, Trajectory
 
 app = create_app(config["testing"])
 
@@ -14,42 +14,47 @@ def client():
     with app.test_client() as test_client:
         yield test_client
 
-@pytest.fixture
-def migrate_data():
-    """Migrate (Create and insert) Postgres db data into sqlite db"""
-    # PostgreSQL db connection Set up
-    sqlite_db_uri = config["testing"]
-    app.config.from_object(sqlite_db_uri)
-    sqlite_engine = create_engine(sqlite_db_uri)
-    Session = sessionmaker(bind=sqlite_engine)
-    sqlite_session = Session()
+# @pytest.fixture
+# def sqlite_connection():
+#     """Migrate (Create and insert) Postgres db data into sqlite db"""
+#     # PostgreSQL db connection Set up
+#     sqlite_db_uri = config["testing"]
+#     app.config.from_object(sqlite_db_uri)
+#     sqlite_engine = create_engine(sqlite_db_uri)
+#     # metadata = MetaData(bind=sqlite_engine)
+#     # Session = sessionmaker(bind=sqlite_engine)
+#     # sqlite_session = Session()
 
+#     with sqlite_engine.connect() as connection:
+#         result = connection.execute(text("create table taxis (id serial primary key, plate varchar(9) not null);"))
+#         print(result)
     # Query to create tables into sqlite db
-    taxis = postgres_session.query(Taxi).limit(5).all()
-    trajectories = postgres_session.query(Trajectory).limit(10).all()
+    # metadata_obj = MetaData()
+    # tables = metadata_obj.create_all(sqlite_engine)
+    # trajectories = Trajectory.create(sqlite_engine)
 
     # Query to insert data into sqlite db
 
-    for taxi in taxis:
-        new_taxi = Taxi(
-            id=taxi.id,
-            plate=taxi.plate
-        )
-        sqlite_session.add(new_taxi)
+    # for taxi in taxis:
+    #     new_taxi = Taxi(
+    #         id=taxi.id,
+    #         plate=taxi.plate
+    #     )
+    #     sqlite_session.add(new_taxi)
 
-    for Trajectory in trajectories:
-        new_trajectory = Trajectory(
-            taxi_id=Trajectory.taxi_id,
-            date=Trajectory.date,
-            latitude=Trajectory.latitude,
-            longitude=Trajectory.longitude
-        )
+    # for Trajectory in trajectories:
+    #     new_trajectory = Trajectory(
+    #         taxi_id=Trajectory.taxi_id,
+    #         date=Trajectory.date,
+    #         latitude=Trajectory.latitude,
+    #         longitude=Trajectory.longitude
+    #     )
 
-    # Commit to save the changes
-    sqlite_session.commit()
+    # # Commit to save the changes
+    # sqlite_session.commit()
 
-    # Close the sessions
-    sqlite_session.close()
+    # # Close the sessions
+    # sqlite_session.close()
 
 # @pytest.fixture
 # def client():
