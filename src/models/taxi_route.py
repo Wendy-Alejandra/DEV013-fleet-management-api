@@ -55,4 +55,5 @@ def get_taxis():
         taxi_list = [{"id": taxi.id, "plate": taxi.plate} for taxi in taxis]
         return jsonify(taxi_list)
     except Exception as e:
+        print (e)
         return jsonify({"message": str(e)}), 500

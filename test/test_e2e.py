@@ -12,6 +12,7 @@ def test_service_response(client):
         "/taxis", query_string={"per_page": 10, "page": 3}
     ):
         response = get_taxis() # Call the endpoint /taxis function
+        print(response.__doc__)
         assert response.status_code == 200 # Verifies response has an HTTP 200 (OK) status code
 
 # "/trajectories/6598", query_string={"date":"2008-02-02", "page"=1, "per_page":2"}
