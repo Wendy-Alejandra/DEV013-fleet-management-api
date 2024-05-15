@@ -26,21 +26,35 @@ def test_get_trajectories(client):
     response = client.get('/trajectories/6598?date=2008-02-02&page=1&per_page=2')
     assert response.status_code == 200
 
-def test_get_trajectories_without_date(client):
+
+def test_get_trajectories_without_date_and_taxi(client):
     """Testing /trajectories/taxi_id without date"""
+    response = client.get('/trajectories')
+    assert response.status_code == 404
+
+    response = client.get('/trajectories?page=1&per_page=2')
+    assert response.status_code == 404
+
     response = client.get('/trajectories/6598?page=1&per_page=2')
     assert response.status_code == 400
+
+    response = client.get('/trajectories/?date=2008-02-02&page=1&per_page=2')
+    assert response.status_code == 404
 
 def test_get_trajectories_invalid_format(client):
     """Testing /trajectories/taxi_id with invalid date format"""
     response = client.get('/trajectories/6598?date="2008-02-02"&page=1&per_page=2')
     assert response.status_code == 400
 
+    response = client.get('/trajectories/6598?date=2008/02/02&page=1&per_page=2')
+    assert response.status_code == 400
+
+
 def test_get_trajectories_pagination(client):
     """Testing /trajectories/taxi_id pagination is correctly working"""
     response = client.get("/trajectories/6598?date=2008-02-02&page=1&per_page=2")
     data = response.get_json()
-    assert len(data) == 1
+    assert len(data) == 2
 
 # def test_get_trajectories_date_str(client):
 #     response = client.get("/trajectories/6418?date=2008-02-02&page=10&per_page=10")

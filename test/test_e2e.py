@@ -3,10 +3,10 @@
 from src.models.taxi_route import get_taxis
 from src.app import create_app
 
-# app = create_app(config["testing"])
+app = create_app()
 
 # e2e testing using test_request_context()
-def test_service_response():
+def test_service_response(client):
     """Making a GET request to the web service"""
     with app.test_request_context(
         "/taxis", query_string={"per_page": 10, "page": 3}
@@ -14,6 +14,7 @@ def test_service_response():
         response = get_taxis() # Call the endpoint /taxis function
         assert response.status_code == 200 # Verifies response has an HTTP 200 (OK) status code
 
+# "/trajectories/6598", query_string={"date":"2008-02-02", "page"=1, "per_page":2"}
 # e2e testing using requests library
 # import requests
 # import pytest
