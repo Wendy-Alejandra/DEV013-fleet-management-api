@@ -49,7 +49,7 @@ def get_taxis():
         # using Flask SQLAlchemy pagination object all arguments to paginate are keyword-only
         # .items on the current page list (as paginate() is an object so it is not iterable)
         taxis = Taxi.query.paginate(page=page, per_page=per_page,error_out=False).items
-        print(taxis)
+        # print(taxis)
 
         # Build list of taxis
         taxi_list = [{"id": taxi.id, "plate": taxi.plate} for taxi in taxis]

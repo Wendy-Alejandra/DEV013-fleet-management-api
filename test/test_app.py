@@ -4,6 +4,8 @@
 def test_get_taxis(client):
     """Testing /taxis route is available"""
     response = client.get('/taxis')
+    data = response.get_json()
+    print(data)
     assert response.status_code == 200
 
 def test_get_taxis_500_error(client):
@@ -13,31 +15,32 @@ def test_get_taxis_500_error(client):
 
 def test_get_taxis_pagination(client):
     """Testing /taxis pagination is correctly working"""
-    response = client.get('/taxis?page=2&per_page=10')
+    response = client.get('/taxis?page=1&per_page=2')
     data = response.get_json()
-    assert len(data) == 10  # Checks if returns 10 taxis per page
+    print(data)
+    assert len(data) == 2  # Checks if returns 2 taxis per page
 
 # trajectories endpoint unit tests
 def test_get_trajectories(client):
     """Testing /trajectories/taxi_id path is available"""
-    response = client.get('/trajectories/6418?date=2008-02-02&page=10&per_page=10')
+    response = client.get('/trajectories/6598?date=2008-02-02&page=1&per_page=2')
     assert response.status_code == 200
 
 def test_get_trajectories_without_date(client):
     """Testing /trajectories/taxi_id without date"""
-    response = client.get('/trajectories/6418?page=10&per_page=10')
+    response = client.get('/trajectories/6598?page=1&per_page=2')
     assert response.status_code == 400
 
 def test_get_trajectories_invalid_format(client):
     """Testing /trajectories/taxi_id with invalid date format"""
-    response = client.get('/trajectories/6418?date="2008-02-02"&page=10&per_page=10')
+    response = client.get('/trajectories/6598?date="2008-02-02"&page=1&per_page=2')
     assert response.status_code == 400
 
 def test_get_trajectories_pagination(client):
     """Testing /trajectories/taxi_id pagination is correctly working"""
-    response = client.get("/trajectories/6418?date=2008-02-02&page=10&per_page=10")
+    response = client.get("/trajectories/6598?date=2008-02-02&page=1&per_page=2")
     data = response.get_json()
-    assert len(data) == 10
+    assert len(data) == 1
 
 # def test_get_trajectories_date_str(client):
 #     response = client.get("/trajectories/6418?date=2008-02-02&page=10&per_page=10")

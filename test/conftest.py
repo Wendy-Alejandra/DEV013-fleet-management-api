@@ -17,7 +17,7 @@ def client():
         yield test_client
 
 print("otra vez")
-# @pytest.fixture
+# @pytest.fixture(scope=session)
 def sqlite_connection():
     """Create SQLite connection and insert data"""
     print("SQLite connection")
@@ -41,26 +41,37 @@ def sqlite_connection():
     )
     metadata.create_all(sqlite_engine)
     # Queries
-    Session = sessionmaker(bind=sqlite_engine)
-    session = Session()
+    # Session = sessionmaker(bind=sqlite_engine)
+    # session = Session()
     # Query to insert data into taxi table in sqlite db
     print("entra a engine.connect")
-    session.execute(taxis_table.insert(), [
-        {"id":7249, "plate":"CNCJ-2997"},
-        {"id":6598, "plate":"FHLB-7962"}
-    ])
+    # taxis_data = [
+    #     {"id":7249, "plate":"CNCJ-2997"},
+    #     {"id":6598, "plate":"FHLB-7962"}
+    # ]
+    taxis_table.insert().values(id=7249, plate="CNCJ-2997")
+    taxis_table.insert().values(id=6598, plate="FHLB-7962")
 
-    session.execute(trajectories_table.insert(), [
-        {"taxi_id": 6598, "date": "2008-02-02 13:40:26", "latitude": 116.29308, "longitude": 39.8804, "id":2},
-        {"taxi_id": 6598, "date": "2008-02-02 13:45:26", "latitude": 116.29308, "longitude": 39.88038, "id":3},
-        {"taxi_id": 6598, "date": "2008-02-02 13:50:26", "latitude": 116.29296, "longitude": 39.88037, "id":4},
-        {"taxi_id": 7249, "date": "2008-02-03 13:36:06", "latitude": 116.29093, "longitude": 39.88667, "id":2838},
-        {"taxi_id": 7249, "date": "2008-02-03 13:31:06", "latitude": 116.29109, "longitude": 39.88677, "id":2839},
-        {"taxi_id": 7249, "date": "2008-02-03 13:41:06", "latitude": 116.29102, "longitude": 39.88675, "id":2840}
-    ])
+
+    # trajectories_table.insert().values(taxi_id=6598, date="2008-02-02 13:40:26", latitude=116.29308, longitude=39.8804, id=2)
+        
+    # session.execute(taxis_table.insert(), [
+    #     {"id":7249, "plate":"CNCJ-2997"},
+    #     {"id":6598, "plate":"FHLB-7962"}
+    # ])
+    # (users.insert(), name='admin', email='admin@localhost')
+
+    # session.execute(trajectories_table.insert(), [
+    #     {"taxi_id": 6598, "date": "2008-02-02 13:40:26", "latitude": 116.29308, "longitude": 39.8804, "id":2},
+    #     {"taxi_id": 6598, "date": "2008-02-02 13:45:26", "latitude": 116.29308, "longitude": 39.88038, "id":3},
+    #     {"taxi_id": 6598, "date": "2008-02-02 13:50:26", "latitude": 116.29296, "longitude": 39.88037, "id":4},
+    #     {"taxi_id": 7249, "date": "2008-02-03 13:36:06", "latitude": 116.29093, "longitude": 39.88667, "id":2838},
+    #     {"taxi_id": 7249, "date": "2008-02-03 13:31:06", "latitude": 116.29109, "longitude": 39.88677, "id":2839},
+    #     {"taxi_id": 7249, "date": "2008-02-03 13:41:06", "latitude": 116.29102, "longitude": 39.88675, "id":2840}
+    # ])
     print("sale del bloque with")
-    session.commit()
-    session.close()
+    # session.commit()
+    # session.close()
     return sqlite_engine
 
 # import pytest
