@@ -1,3 +1,31 @@
+## <1.4.0> - <2024-05-15>
+
+### Sprint learnings
+
+* SQLite connection for testing purposes
+* Use of SQLAlchemy to create tables and insert data in SQLite
+* Run in the terminal `ENVIRONMENT=development Flask run` to run the developmemt environment
+* Run in the terminal `ENVIRONMENT=testing pytest -vs` to run the developmemt environment
+
+
+### Added
+
+* ENVIRONMENT=development variable in .env file and run it in the terminal
+
+### Changed
+
+N/A
+
+### Fixed
+
+N/A
+
+### Removed
+
+* `vercel_connection.py` file which was using psycopg2 library
+
+-----------------------------------------------------------------------------------------------------------------
+
 ## <1.3.0> - <2024-05-08>
 
 ### Sprint learnings
