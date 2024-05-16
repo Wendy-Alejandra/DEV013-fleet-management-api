@@ -6,6 +6,7 @@ from src.config import config
 from src.models.models import db
 from src.models.taxi_route import taxi_bp
 from src.models.trajectory_route import trajectory_bp
+from src.models.last_position import last_position_bp
 
 def create_app():
     """Create Flask Application"""
@@ -19,6 +20,7 @@ def create_app():
     # Register blueprints
     app.register_blueprint(taxi_bp)
     app.register_blueprint(trajectory_bp)
+    app.register_blueprint(last_position_bp)
 
     # Initialize Swagger
     Swagger(app)
