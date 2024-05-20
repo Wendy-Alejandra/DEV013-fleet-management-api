@@ -1,3 +1,32 @@
+## <1.5.0> - <2024-05-22>
+
+### Sprint learnings
+
+* Use of subqueries into a main query in SQLAlchemy.
+* Using .paginate() vs .all() methods in SQLAlchemy. They don't work together.
+* .all() method runs the query and returns all results as a list of objects.
+* .paginate() Flask-SQLAlchemy method used to devide a big amount of data in smaller pages. Should be applied directly to the query before converting to JSON format.
+* .strftime() python method used to format datetime objects into a text string according to a specified format. This is useful because JSON does not have a native datetime data type and needs to work with text strings to represent dates and times.
+
+
+### Added
+
+* `controllers` folder for the 3 endpoints (taxis, trajectories/id and trajectories/latest)
+
+### Changed
+
+* import routes in the `app.py` file (from `controllers` folder)
+
+### Fixed
+
+N/A
+
+### Removed
+
+N/A
+
+-----------------------------------------------------------------------------------------------------------------
+
 ## <1.4.0> - <2024-05-15>
 
 ### Sprint learnings
