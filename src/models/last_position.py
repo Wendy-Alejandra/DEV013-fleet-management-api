@@ -32,6 +32,10 @@ def get_last_position():
         .distinct(Trajectory.taxi_id)\
         .paginate(page=page, per_page=per_page,error_out=False).items
 
+    # Customized message if not elements in the page
+    if not latest_trajectories:
+        return jsonify({"message": "No trajectories found"}), 404
+
     # Convert results to JSON
     trajectories_jason = []
     for trajectory in latest_trajectories:
