@@ -56,6 +56,17 @@ def test_get_trajectories_pagination(client):
     data = response.get_json()
     assert len(data) == 2
 
+def test_get_last_position(client):
+    """Testing /trajectories/latest endpoint"""
+    response = client.get('/trajectories/latest?page=1&per_page=5')
+    data = response.get_json()
+    assert len(data) == 5
+    assert response.status_code == 200
+
+    response = client.get('/trajectories/latest?page=3&per_page=5')
+    data = response.get_json()
+    assert response.status_code == 404
+    assert len(data) == 1
 # def test_get_trajectories_date_str(client):
 #     response = client.get("/trajectories/6418?date=2008-02-02&page=10&per_page=10")
 #     assert '2008-02-02' in response

@@ -9,7 +9,7 @@ app = create_app()
 def test_service_response(client):
     """Making a GET request to the web service"""
     with app.test_request_context(
-        "/taxis", query_string={"per_page": 10, "page": 3}
+        "http://127.0.0.1:5000/taxis", query_string={"per_page": 10, "page": 3}
     ):
         response = get_taxis() # Call the endpoint /taxis function
         assert response.status_code == 200 # Verifies response has an HTTP 200 (OK) status code
