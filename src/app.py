@@ -4,9 +4,9 @@ from flask import Flask
 from flasgger import Swagger
 from src.config import config
 from src.models.models import db
-from src.models.taxi_route import taxi_bp
-from src.models.trajectory_route import trajectory_bp
-from src.models.last_position import last_position_bp
+from src.controllers.taxi_route import taxi_bp
+from src.controllers.trajectory_route import trajectory_bp
+from src.controllers.last_position import last_position_bp
 
 def create_app():
     """Create Flask Application"""
