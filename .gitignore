@@ -1,7 +1,11 @@
-.vercel
-*__pycache__*
-.docs
-.env
-node_modules
-explaindev.json
 .pytest_cache/
+*__pycache__*
+.vercel/
+docs/
+node_modules/
+.venv/
+.coverage
+.env
+explaindev.json
+package_lock.json
+package.json
