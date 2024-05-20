@@ -1,7 +1,7 @@
 .vercel
 *__pycache__*
-.pytest_cache
-docs/
-env/
+.docs
+.env
 node_modules
 explaindev.json
+.pytest_cache/
