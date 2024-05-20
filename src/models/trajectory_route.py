@@ -10,13 +10,10 @@ def get_trajectories(taxi_id):
     """Get list of taxis trajectories"""
     # Getting date as a query param
     date_str = request.args.get('date')
-    # print(date_str)
 
     # Pagination limits
     page = request.args.get('page', default=1, type=int)
-    # print(page)
     per_page = request.args.get('per_page', default=10, type=int)
-    # print(per_page)
 
     if not date_str:
         return jsonify({"error": "date parameter is required"}), 400
@@ -28,7 +25,7 @@ def get_trajectories(taxi_id):
     except ValueError:
         return jsonify({"error": "Invalid date format. Please use YYYY-MM-DD format"}), 400
 
-    # Querying trajectories at once
+    # Querying all trajectories at once with their pagination
     trajectories = Trajectory.query.filter_by(taxi_id=taxi_id)\
                                    .filter(Trajectory.date.between(date, date_tomorrow))\
                                    .paginate(page=page, per_page=per_page,error_out=False).items

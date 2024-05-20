@@ -8,15 +8,17 @@ last_position_bp = Blueprint("last_position", __name__)
 @last_position_bp.route("/trajectories/latest", methods=["GET"])
 def get_last_position():
     """Get last position for each taxi"""
-       # Pagination limits
+    # Pagination limits
     page = request.args.get('page', default=1, type=int)
-    # print(page)
     per_page = request.args.get('per_page', default=10, type=int)
+
+    # Subquery to get last position per taxi
     latest_subquery = Trajectory.query.with_entities(
         Trajectory.taxi_id,
         func.max(Trajectory.date).label('max_date')
     ).group_by(Trajectory.taxi_id).subquery()
 
+    # Main query with pagination included
     latest_trajectories = Trajectory.query.join(Taxi, Trajectory.taxi_id == Taxi.id)\
         .join(latest_subquery, and_(
             Trajectory.taxi_id == latest_subquery.c.taxi_id,
@@ -30,7 +32,6 @@ def get_last_position():
         .distinct(Trajectory.taxi_id)\
         .paginate(page=page, per_page=per_page,error_out=False).items
 
-    print(len(latest_trajectories))
     # Convert results to JSON
     trajectories_jason = []
     for trajectory in latest_trajectories:
