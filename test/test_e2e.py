@@ -1,6 +1,6 @@
 """End to end tests"""
 # from src.config import config
-from src.models.taxi_route import get_taxis
+from src.controllers.taxi_route import get_taxis
 from src.app import create_app
 
 app = create_app()
