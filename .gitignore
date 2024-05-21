@@ -1,6 +1,6 @@
 .pytest_cache/
-*__pycache__*
-.vercel/
+__pycache__
+.vercel
 docs/
 node_modules/
 .venv/
