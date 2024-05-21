@@ -7,6 +7,7 @@
 * .all() method runs the query and returns all results as a list of objects.
 * .paginate() Flask-SQLAlchemy method used to devide a big amount of data in smaller pages. Should be applied directly to the query before converting to JSON format.
 * .strftime() python method used to format datetime objects into a text string according to a specified format. This is useful because JSON does not have a native datetime data type and needs to work with text strings to represent dates and times.
+* .gitignore file updated to ignore unnecessary cached files and folders using the `git rm -r --cached .` command in the terminal (windows bash).
 
 
 ### Added
