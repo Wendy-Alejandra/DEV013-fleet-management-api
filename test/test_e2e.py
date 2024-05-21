@@ -8,7 +8,7 @@ app = create_app()
 # e2e testing using test_request_context()
 def test_service_response(client):
     """Making a GET request to the web service"""
-    with app.test_request_context(
+    with client.test_request_context(
         "http://127.0.0.1:5000/taxis", query_string={"per_page": 10, "page": 3}
     ):
         response = get_taxis() # Call the endpoint /taxis function
